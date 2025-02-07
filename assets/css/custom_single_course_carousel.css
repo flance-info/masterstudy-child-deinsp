@@ -99,3 +99,9 @@ body .owl-carousel .owl-stage {
     align-content: center;
     align-items: center;
 }
+
+.owl-carousel .owl-item .stm_lms_single_bundle__courses_course__image img {
+    display: block;
+    width: 100%;
+    height: 57px;
+}
