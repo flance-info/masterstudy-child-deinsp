@@ -105,3 +105,17 @@ body .owl-carousel .owl-stage {
     width: 100%;
     height: 57px;
 }
+
+body .stm_lms_single_bundle_card {
+     width: calc(100% - 30px); 
+    margin: 0 15px 50px;
+    border: 1px solid #e0e0e0;
+    transition: .3s ease;
+}
+
+body .owl-carousel .owl-item {
+    min-height: 600px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-touch-callout: none;
+}

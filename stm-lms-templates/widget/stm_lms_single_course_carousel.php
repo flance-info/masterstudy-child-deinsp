@@ -19,7 +19,37 @@ stm_lms_module_scripts( 'single_course_carousel', 'style_1' );
 
 use MasterStudy\Lms\Pro\addons\CourseBundle\Repository\CourseBundleRepository;
 
+
+stm_lms_register_script( 'bundles/card' );
+
+$public = true;
+
+$columns = ( ! empty( $columns ) ) ? $columns : '6';
+
+$args = ( ! empty( $args ) ) ? $args : array();
+$argsd = array('posts_per_page' => 12,
+			   'post_status' => 'publish',
+			   'stm_lms_page' => 0,
+			   'author' => ''
+			  );
+$bundles = ( new CourseBundleRepository() )->get_bundles(
+	wp_parse_args(
+		$argsd,
+		array(
+			'post__in'       => ! empty( $atts['courses'] ) ? $atts['courses'] : array(),
+			'posts_per_page' => - 1,
+		)
+	),
+	$public
+);
+
+
+$bundles_list = ( ! empty( $bundles['posts'] ) ) ? $bundles['posts'] : array();
+$courses_data      = ( ! empty( $bundles['courses'] ) ) ? $bundles['courses'] : array();
+$pages        = ( ! empty( $bundles['pages'] ) ) ? $bundles['pages'] : 1;
 stm_lms_register_style( 'expiration/main' );
+
+
 if ( $q->have_posts() ) :
 	?>
 	<div class="stm_lms_single_course_carousel_wrapper <?php // phpcs:ignore Squiz.PHP.EmbeddedPhp
@@ -51,81 +81,32 @@ if ( $q->have_posts() ) :
 					</a>
 
 					<div class="stm_lms_single_course_carousel_item__content">
-						<?php STM_LMS_Templates::show_lms_template( 'course/parts/panel_info', array( 'number' => 1 ) ); ?>
-
-
-						<div class="stm_lms_courses__single--info_meta">
-							<?php STM_LMS_Templates::show_lms_template( 'courses/parts/meta', compact( 'level', 'duration', 'lectures' ) ); ?>
-						</div>
 
 
 						<?php
 						$courses = CourseBundleRepository::get_bundle_courses( $post_id );
 						$price   = CourseBundleRepository::get_bundle_price( $post_id );
 						if ( ! empty( $courses ) ) : ?>
-						
-						<div class="stm_lms_single_bundle__courses_wrapper">
-
-							<h2><a class="h2" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-
-							<div class="stm_lms_single_bundle__courses">
-
-								<?php foreach ( $courses as $course_id ) : ?>
-
-									<a href="<?php echo esc_url( get_the_permalink( $course_id ) ); ?>" class="stm_lms_single_bundle__courses_course">
-
-										<div class="stm_lms_single_bundle__courses_course__inner">
-
-											<div class="stm_lms_single_bundle__courses_course__image">
-												<?php
-												$img_size = '85x50';
-												if ( function_exists( 'stm_get_VC_img' ) ) {
-													// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-													echo stm_lms_lazyload_image( stm_get_VC_img( get_post_thumbnail_id( $course_id ), $img_size ) );
-												} else {
-													echo get_the_post_thumbnail( $course_id, $img_size );
-												}
-												?>
-											</div>
-
-											<?php $course_expiration_days = STM_LMS_Course::get_course_expiration_days( $course_id ); ?>
-
-											<div class="stm_lms_single_bundle__courses_course__data heading_font">
-
-												<?php
-												if ( $course_expiration_days ) {
-													STM_LMS_Templates::show_lms_template( 'expiration/info', compact( 'course_expiration_days' ) );
-												}
-												?>
-
-												<div class="stm_lms_single_bundle__courses_course__title">
-													<?php echo esc_html( get_the_title( $course_id ) ); ?>
-												</div>
-
-												<?php if ( ! empty( $price ) ) : ?>
-													<div class="stm_lms_single_bundle__courses_course__price">
-														<?php
-														// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-														echo STM_LMS_Helpers::display_price( STM_LMS_Course::get_course_price( $course_id ) );
-														?>
-													</div>
-												<?php endif; ?>
-
-											</div>
-
-										</div>
-
-									</a>
-
-								<?php endforeach; ?>
-
-							</div>
-
 
 							<?php
-							endif;
-							?>
-						</div>
+							$bundle          = array(
+									'id'        => $post_id,
+									'title'     => get_the_title( $post_id ),
+									'url'       => get_permalink( $post_id ),
+									'edit_url'  => get_edit_post_link( $post_id ),
+									'raw_price' => get_post_meta( $post_id, 'raw_price', true ),
+									'price'     => get_post_meta( $post_id, 'price', true ),
+									'status'    => get_post_status( $post_id ),
+									'courses'   => $courses
+							);
+
+							$courses = $courses_data ;
+							STM_LMS_Templates::show_lms_template( 'bundles/card/php/main', compact( 'bundle', 'courses' ) ); ?>
+
+
+						<?php
+						endif;
+						?>
 
 					</div>
 
