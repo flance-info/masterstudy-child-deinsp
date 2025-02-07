@@ -19,36 +19,40 @@ stm_lms_module_scripts( 'single_course_carousel', 'style_1' );
 
 use MasterStudy\Lms\Pro\addons\CourseBundle\Repository\CourseBundleRepository;
 
-
 stm_lms_register_script( 'bundles/card' );
-
 $public = true;
-
 $columns = ( ! empty( $columns ) ) ? $columns : '6';
-
-$args = ( ! empty( $args ) ) ? $args : array();
-$argsd = array('posts_per_page' => 12,
-			   'post_status' => 'publish',
-			   'stm_lms_page' => 0,
-			   'author' => ''
-			  );
-$bundles = ( new CourseBundleRepository() )->get_bundles(
-	wp_parse_args(
-		$argsd,
-		array(
-			'post__in'       => ! empty( $atts['courses'] ) ? $atts['courses'] : array(),
-			'posts_per_page' => - 1,
-		)
-	),
-	$public
+$args    = ( ! empty( $args ) ) ? $args : array();
+$argsd   = array(
+		'posts_per_page' => 12,
+		'post_status'    => 'publish',
+		'stm_lms_page'   => 0,
+		'author'         => ''
 );
+$bundles = ( new CourseBundleRepository() )->get_bundles(
+		wp_parse_args(
+				$argsd,
+				array(
+						'post__in'       => ! empty( $atts['courses'] ) ? $atts['courses'] : array(),
+						'posts_per_page' => - 1,
+				)
+		),
+		$public
+);
+function get_bundle_by_id( $bundles_list, $bundle_id ) {
+	foreach ( $bundles_list as $bundle ) {
+		if ( $bundle['id'] == $bundle_id ) {
+			return $bundle;
+		}
+	}
 
+	return null; // Return null if no bundle is found with the given ID
+}
 
 $bundles_list = ( ! empty( $bundles['posts'] ) ) ? $bundles['posts'] : array();
-$courses_data      = ( ! empty( $bundles['courses'] ) ) ? $bundles['courses'] : array();
+$courses_data = ( ! empty( $bundles['courses'] ) ) ? $bundles['courses'] : array();
 $pages        = ( ! empty( $bundles['pages'] ) ) ? $bundles['pages'] : 1;
 stm_lms_register_style( 'expiration/main' );
-
 
 if ( $q->have_posts() ) :
 	?>
@@ -89,18 +93,8 @@ if ( $q->have_posts() ) :
 						if ( ! empty( $courses ) ) : ?>
 
 							<?php
-							$bundle          = array(
-									'id'        => $post_id,
-									'title'     => get_the_title( $post_id ),
-									'url'       => get_permalink( $post_id ),
-									'edit_url'  => get_edit_post_link( $post_id ),
-									'raw_price' => get_post_meta( $post_id, 'raw_price', true ),
-									'price'     => get_post_meta( $post_id, 'price', true ),
-									'status'    => get_post_status( $post_id ),
-									'courses'   => $courses
-							);
-
-							$courses = $courses_data ;
+							$bundle = get_bundle_by_id( $bundles_list, $post_id );
+							$courses = $courses_data;
 							STM_LMS_Templates::show_lms_template( 'bundles/card/php/main', compact( 'bundle', 'courses' ) ); ?>
 
 
