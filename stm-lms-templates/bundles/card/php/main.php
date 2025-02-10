@@ -9,7 +9,7 @@ stm_lms_register_style( 'bundles/card' );
 $classes = array();
 
 if ( count( $bundle['courses'] ) > 5) {
-	$classes[] = 'overcoursed';
+	$classes[] = 'stm-overcoursed';
 }
 
 

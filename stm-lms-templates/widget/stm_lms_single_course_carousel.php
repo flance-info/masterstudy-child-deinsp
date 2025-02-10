@@ -70,7 +70,7 @@ if ( $q->have_posts() ) :
 			while ( $q->have_posts() ) :
 				$q->the_post();
 				$post_id  = get_the_ID();
-			
+
 				$level    = get_post_meta( $post_id, 'level', true );
 				$duration = get_post_meta( $post_id, 'duration_info', true );
 				$lectures = STM_LMS_Course::curriculum_info( $post_id );

@@ -119,3 +119,41 @@ body .owl-carousel .owl-item {
     -webkit-backface-visibility: hidden;
     -webkit-touch-callout: none;
 }
+body
+.stm_lms_single_course_carousel_wrapper
+.stm_lms_single_course_carousel .stm_lms_single_course_carousel_item__content {
+    margin-left: auto;
+    padding-top: 0px;
+    width: 51.5%;
+       margin-top: 45px;
+}
+
+body .stm_lms_single_bundle_card__inner {
+
+    min-height: 465px;
+}
+body
+.stm_lms_single_bundle_card.stm-overcoursed:hover
+.stm_lms_single_bundle_card__center_bottom
+.stm_lms_single_bundle_card__center_bottom_inner
+.stm_lms_single_bundle_card__courses {
+
+	overflow-y: scroll;
+	transition: .3s ease;
+	-ms-overflow-style: none
+}
+.stm_lms_single_course_carousel_item
+a.masterstudy-bundle-button {
+    display: flex;
+    min-height: 60px;
+    padding: 14px 20px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(25, 200, 149, 1);
+    transition: .2s;
+    border-radius: 8px;
+    position: relative;
+}
