@@ -8,6 +8,10 @@ use MasterStudy\Lms\Pro\addons\CourseBundle\Repository\CourseBundleRepository;
 $bundle_rating       = CourseBundleRepository::get_bundle_rating( $bundle['id'] );
 $bundle_course_price = CourseBundleRepository::get_bundle_courses_price( $bundle['id'] );
 $post_id = $bundle['id'];
+
+
+
+
 ?>
 
 <?php

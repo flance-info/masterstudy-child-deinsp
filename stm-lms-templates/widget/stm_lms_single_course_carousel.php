@@ -49,6 +49,8 @@ function get_bundle_by_id( $bundles_list, $bundle_id ) {
 	return null; // Return null if no bundle is found with the given ID
 }
 
+
+
 $bundles_list = ( ! empty( $bundles['posts'] ) ) ? $bundles['posts'] : array();
 $courses_data = ( ! empty( $bundles['courses'] ) ) ? $bundles['courses'] : array();
 $pages        = ( ! empty( $bundles['pages'] ) ) ? $bundles['pages'] : 1;
