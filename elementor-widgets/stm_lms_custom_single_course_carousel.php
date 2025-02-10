@@ -121,6 +121,18 @@ class StmLmsCustomSingleCourseCarousel extends Widget_Base {
             )
         );
 
+        $this->add_control(
+            'priority_course',
+            array(
+                'name'        => 'priority_course',
+                'label'       => __( 'Priority Course', 'masterstudy-child' ),
+                'type'        => \Elementor\Controls_Manager::SELECT,
+                'label_block' => true,
+                'options'     => stm_lms_elementor_autocomplete_courses(),
+                'default'     => '',
+            )
+        );
+
         $this->end_controls_section();
     }
 
@@ -133,6 +145,14 @@ class StmLmsCustomSingleCourseCarousel extends Widget_Base {
             'pagination' => ! empty( $settings['pagination'] ) ? $settings['pagination'] : 'disable',
             'courses'    => ! empty( $settings['courses'] ) ? $settings['courses'] : array(),
         );
+
+        // Reorder courses to place the priority course first
+        if (!empty($settings['priority_course']) && in_array($settings['priority_course'], $atts['courses'])) {
+            $priority_course = $settings['priority_course'];
+            $atts['courses'] = array_diff($atts['courses'], array($priority_course));
+            array_unshift($atts['courses'], $priority_course);
+        }
+
         $uniq = stm_lms_create_unique_id( $atts );
         $atts['uniq'] = $uniq;
         
