@@ -11,88 +11,32 @@
 	Tags: classes, courses, education, education center, learning center, tutoring, teaching, study, studying, learning, lessons, instructor, teacher, mentor
 	Text Domain: masterstudy-child
 */
-
-body #header-mobile .header_2 .header_top .stmlms-user {
-    color: #fff !important;
-    font-size: 32px;
+button#reset-progress {
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    min-width: 100%;
+    outline: 0;
+    border: none;
+    background: palevioletred;
+    position: relative;
+    border-radius: 8px;
+    transition: .2s;
+    color: #fff;
+    cursor: pointer;
+    height: 50px;
+    margin-top: 10px;
 }
 
-.woocommerce-checkout-payment .woocommerce-terms-and-conditions-wrapper #terms {
-    width: 15px;
-    margin-top: 2px;
+#reset-notification {
+	margin-top: 10px;
+	font-size: 14px;
 }
 
-.cart_totals .wc-proceed-to-checkout {
-    display: block !important;
+#reset-notification.success {
+	color: #28a745; /* Green for success */
 }
 
-.stm_lms_single_course_carousel_wrapper .stm_lms_single_course_carousel .stm_lms_single_course_carousel_item__content .stm_lms_courses__single__buttons .masterstudy-buy-button {
-    width: auto !important;
+#reset-notification.error {
+	color: #dc3545; /* Red for error */
 }
-
-.woocommerce-page p.return-to-shop {
-    display: none !important;
-}
-
-.header_default, .header_2 {
-    background-color: #2f4371 !important;
-}
-
-#place_order {
-    max-width: 100%;
-}
-.owl-carousel .owl-item{
-    padding: 0 20px;
-}
-@media (max-width: 425px){
-    .owl-carousel .owl-item {
-        display: inline-block; /* Ensure items are aligned properly */
-        padding: 0 40px;
-    }
-}
-
-@media (max-width: 767px) {
-    .woocommerce-checkout-payment .woocommerce-terms-and-conditions-wrapper #terms {
-        margin-left: 0 !important;
-    }
-    .woocommerce-checkout-payment .woocommerce-form__label-for-checkbox {
-        text-align: left;
-    }
-    .woocommerce-checkout-payment .woocommerce-terms-and-conditions-checkbox-text {
-        padding-left: 20px;
-        font-size: 13px;
-    }
-    .shop_table tbody tr td.actions .coupon {
-        display: block !important;
-    }
-    .shop_table tbody tr td.actions .coupon input[type=submit] {
-        margin-left: 0;
-        margin-top: 5px;
-        display: block !important;
-    }
-    .shop_table tbody tr td.actions .button.update-cart {
-        width: 100% !important;
-    }
-    .elementor:not(.elementor-bc-flex-widget) .elementor-widget-wrap {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 1025px) {
-    body #header-mobile .header_2 .stm_lms_account_popup__close {
-        color: #000000 !important;
-        background: #fff !important;
-    }
-    
-}
-
-@media (max-width: 1200px) {
-    .stm_lms_single_course_carousel_wrapper .stm_lms_single_course_carousel .stm_lms_single_course_carousel_item__content .stm_lms_courses__single__buttons {
-        display: block !important;
-    }
-    .stm_lms_single_course_carousel_wrapper .stm_lms_single_course_carousel .stm_lms_single_course_carousel_item__content .stm_lms_courses__single__buttons .stm-lms-wishlist {
-        margin-top: 25px !important;
-        margin-left: 0 !important;
-    }
-}
-
